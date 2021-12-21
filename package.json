@@ -1,0 +1,19 @@
+{
+  "name": "restfull_countries_api",
+  "version": "1.0.0",
+  "description": "countries display app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenChis/REST-Countries-API.git"
+  },
+  "author": "benjamin scharf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenChis/REST-Countries-API/issues"
+  },
+  "homepage": "https://github.com/BenChis/REST-Countries-API#readme"
+}
