@@ -12,9 +12,9 @@ const renderCountryUi = function (data) {
         <h2 class="card__name">${data.name.common}</h2>
 
         <p class="card__data">
-        Population: <span class="card__data--population">${
-          data.population
-        }</span>
+        Population: <span class="card__data--population">${(
+          +data.population / 1_000_000
+        ).toFixed(1)} Mio</span>
         </p>
 
         <p class="card__data">
@@ -65,13 +65,11 @@ const getCountryData = function (country) {
     });
 };
 
-getCountryData('germany');
-getCountryData('United States of America');
-getCountryData('brazil');
-getCountryData('iceland');
-getCountryData('afghanistan');
-getCountryData('aland islands');
-getCountryData('albania');
-getCountryData('alegeria');
-getCountryData('colombia');
-getCountryData('chile');
+// getCountryData('germany');
+// getCountryData('United States of America');
+// getCountryData('brazil');
+// getCountryData('iceland');
+// getCountryData('afghanistan');
+// getCountryData('spain');
+// getCountryData('albania');
+// getCountryData('algeria');
