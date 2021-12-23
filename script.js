@@ -5,6 +5,8 @@
 const cardContainer = document.querySelector('.country-container');
 const searchInput = document.querySelector('.form__search-input');
 
+const form = document.querySelector('.form');
+
 //////////////////
 //FUNCTIONS //
 //////////////////
@@ -135,12 +137,28 @@ const renderCountryBorder = function (arr) {
     <p class="country__data--border">${borderCountry}</p>
          </div>`;
 
-    console.log(borderHTML);
+    // console.log(borderHTML);
 
     document
       .querySelector('.country__data-border-container')
       .insertAdjacentHTML('beforeend', borderHTML);
   });
+};
+
+const removeSearchFilterEl = function () {
+  form.style.display = 'none';
+
+  const allCards = document.querySelectorAll('.country-card');
+  allCards.forEach(country => (country.style.display = 'none'));
+};
+
+const resetSeachResults = function () {
+  form.style.display = 'block';
+  document.querySelector('.search-result').remove();
+  document.querySelector('.btn-back').remove();
+
+  const allCards = document.querySelectorAll('.country-card');
+  allCards.forEach(country => (country.style.display = 'block'));
 };
 
 //////////////////
@@ -150,42 +168,57 @@ const renderCountryBorder = function (arr) {
 const getCountryData = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(function (response) {
-      //   console.log(response);
+      if (response.ok === false) {
+        throw new Error(
+          '💥Country not found. Please check spelling, or try another country'
+        );
+      }
+
       return response.json();
     })
     .then(function (data) {
       const [countryData] = data;
-      console.log(countryData);
+      //   console.log(countryData);
       renderCountryUi(countryData);
-    });
+    })
+    .catch(err => console.log(`💥 Something went wrong -> ${err}`));
 };
 
 const getCountryDataSearch = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(function (response) {
-      //   console.log(response);
+      console.log(response);
+
+      if (response.ok === false) {
+        throw new Error(
+          '💥Country not found. Please check spelling, or try another country'
+        );
+      }
+
       return response.json();
     })
     .then(function (data) {
       const [countryData] = data;
       //   console.log(Object.keys(countryData.currencies).at(0));
-      console.log(...Object.values(countryData.languages));
+      //   console.log(...Object.values(countryData.languages));
+      removeSearchFilterEl();
       renderSearchResults(countryData);
-    });
+    })
+    .catch(err => alert(err));
 };
 
 //////////////////
 // DEFAULT COUNTRIES WHEN PAGE LOADS //
 //////////////////
 
-// getCountryData('germany');
-// getCountryData('United States of America');
-// getCountryData('brazil');
-// getCountryData('iceland');
-// getCountryData('afghanistan');
-// getCountryData('spain');
-// getCountryData('albania');
-// getCountryData('algeria');
+getCountryData('germany');
+getCountryData('United States of America');
+getCountryData('brazil');
+getCountryData('iceland');
+getCountryData('afghanistan');
+getCountryData('spain');
+getCountryData('albania');
+getCountryData('algeria');
 
 //////////////////
 // EVENT LISTENERS //
@@ -197,5 +230,12 @@ searchInput.addEventListener('keydown', function (e) {
     getSearchResults();
     // Clearing the input field
     searchInput.value = '';
+  }
+});
+
+cardContainer.addEventListener('click', function (e) {
+  if (e.target === e.target.closest('.btn-back')) {
+    // Reset Search Results
+    resetSeachResults();
   }
 });
