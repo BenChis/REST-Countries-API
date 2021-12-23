@@ -7,6 +7,8 @@ const searchInput = document.querySelector('.form__search-input');
 const searchFilter = document.querySelector('.form__filter');
 const searchIcon = document.querySelector('.search-icon');
 const form = document.querySelector('.form');
+const filter = document.querySelector('.form__filter');
+const filterMenu = document.querySelector('.form__filter-options');
 
 const header = document.querySelector('header');
 const body = document.querySelector('body');
@@ -57,7 +59,9 @@ const renderSearchResults = function (data) {
     <button class="btn-back">&#8592; Back</button>
       <article class="search-result">
         <div class="country-flag-container">
-          <img src="${data.flags.png}" class="country-flag__img" alt="Flag of ${
+          <img src="${
+            data.flags.png
+          }" class="country-flag__img country-flag__img--search" alt="Flag of ${
     data.name.common
   }" />
         </div>
@@ -139,6 +143,8 @@ const getSearchResults = function () {
 };
 
 const renderCountryBorder = function (arr) {
+  if (arr === undefined) return;
+
   arr.forEach(borderCountry => {
     const borderHTML = `
     <p class="country__data--border">${borderCountry}</p>
@@ -179,14 +185,11 @@ const nightMode = function () {
   searchFilter.classList.toggle('u-day-colors-bk-txt');
   header.classList.toggle('u-day-colors-bk');
   searchIcon.classList.toggle('u-day-colors-txt');
+  filterMenu.classList.toggle('u-day-colors-bk-txt');
 
   document
     .querySelectorAll('.country-card')
     .forEach(country => country.classList.toggle('u-day-colors-bk'));
-};
-
-const filterCountries = function (arr, filter) {
-  arr.filter(el => (el.region = filter));
 };
 
 //////////////////
@@ -266,6 +269,48 @@ cardContainer.addEventListener('click', function (e) {
   }
 });
 
+filter.addEventListener('click', () => filterMenu.classList.toggle('hidden'));
+
+//////////////////
+//Filter //
+//////////////////
+
+// GETTING THE CLICKED EL FROM FILTER MENU
+filterMenu.addEventListener('click', function (e) {
+  if (e.target.closest('p') === null) return;
+  const clickedFilter = e.target.closest('p');
+  const clickedFilterCountry = clickedFilter.id;
+  console.log(clickedFilterCountry);
+
+  filterCountries(clickedFilterCountry);
+});
+
+// const arrCountries = [];
+
+const filterCountries = function (country) {
+  const allCountryRegions = document.querySelectorAll('.country__data--region');
+
+  //   console.log(allCountryRegions);
+
+  for (i = 0; i < allCountryRegions.length; i++) {
+    const filtertRegions = [];
+
+    if (allCountryRegions[i].textContent !== country) {
+      //   console.log(allCountryRegions[i].textContent, country);
+      filtertRegions.push(allCountryRegions[i]);
+    }
+
+    filtertRegions.forEach(
+      reg =>
+        (reg.parentElement.parentElement.parentElement.style.display = 'none')
+    );
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 5000);
+  }
+};
+
 //////////////////
 //NIGHT MODE FUNCTIONALITY //
 //////////////////
@@ -288,14 +333,4 @@ modeToggle.addEventListener('click', function (e) {
 
     document.querySelector('.btn-back').classList.remove('u-day-colors-bk-txt');
   }
-
-  //     (body.style.backgroundColor = 'var(--color-light-mode-bk)' === true)
-  //   );
-  //   console.log(modeToggle.firstElementChild);
-  //   console.log(
-  //     !modeToggle.firstElementChild.classList.contains('mode__mood--hidden')
-  //   );
-  //   if (!modeToggle.firstElementChild.classList.contains('mode__mood--hidden'))
-  //     nightMode();
-  //   else window.location.reload();
 });

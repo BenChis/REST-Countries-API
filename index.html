@@ -19,7 +19,7 @@
     <!-- Script sheets -->
     <script defer src="script.js"></script>
 
-    <title>Countries Api</title>
+    <title>Countries</title>
   </head>
 
   <body class="u-day-colors-body">
@@ -86,14 +86,43 @@
             autocomplete="country"
           />
           <label for="filter"></label>
-          <select class="form__filter" name="filter" id="filter">
+
+          <div class="form__filter">
+            <h3 class="form__filter-heading">
+              Filter by region
+              <span
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="filter-heading__icon"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  /></svg
+              ></span>
+            </h3>
+
+            <div class="form__filter-options hidden">
+              <p id="Africa">Africa</p>
+              <p id="Americas">Americas</p>
+              <p id="Asia">Asia</p>
+              <p id="Europe">Europe</p>
+              <p id="Oceania">Oceania</p>
+            </div>
+          </div>
+          <!-- <select class="form__filter" name="filter" id="filter">
             <option value="default">Filter by Region</option>
-            <option value="africa">Africa</option>
-            <option value="america">America</option>
-            <option value="Asia">Asia</option>
-            <option value="Europe">Europe</option>
-            <option value="Oceania">Oceania</option>
-          </select>
+            <option id="africa" value="Africa">Africa</option>
+            <option id="america" value="America">America</option>
+            <option id="asia" value="Asia">Asia</option>
+            <option id="europe" value="Europe">Europe</option>
+            <option id="oceania" value="Oceania">Oceania</option>
+          </select> -->
         </div>
       </form>
 
