@@ -49,7 +49,6 @@ const renderCountryUi = function (data) {
     </div>
    </article> 
     `;
-  //   console.log(typeof html);
 
   cardContainer.insertAdjacentHTML('beforeend', html);
 };
@@ -150,8 +149,6 @@ const renderCountryBorder = function (arr) {
     <p class="country__data--border">${borderCountry}</p>
          </div>`;
 
-    // console.log(borderHTML);
-
     document
       .querySelector('.country__data-border-container')
       .insertAdjacentHTML('beforeend', borderHTML);
@@ -209,7 +206,7 @@ const getCountryData = function (country) {
     })
     .then(function (data) {
       const [countryData] = data;
-      //   console.log(countryData);
+
       renderCountryUi(countryData);
     })
     .catch(err => console.log(`💥 Something went wrong -> ${err}`));
@@ -218,8 +215,6 @@ const getCountryData = function (country) {
 const getCountryDataSearch = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(function (response) {
-      console.log(response);
-
       if (response.ok === false) {
         throw new Error(
           '💥Country not found. Please check spelling, or try another country'
@@ -280,7 +275,6 @@ filterMenu.addEventListener('click', function (e) {
   if (e.target.closest('p') === null) return;
   const clickedFilter = e.target.closest('p');
   const clickedFilterCountry = clickedFilter.id;
-  console.log(clickedFilterCountry);
 
   filterCountries(clickedFilterCountry);
 });
@@ -290,13 +284,10 @@ filterMenu.addEventListener('click', function (e) {
 const filterCountries = function (country) {
   const allCountryRegions = document.querySelectorAll('.country__data--region');
 
-  //   console.log(allCountryRegions);
-
   for (i = 0; i < allCountryRegions.length; i++) {
     const filtertRegions = [];
 
     if (allCountryRegions[i].textContent !== country) {
-      //   console.log(allCountryRegions[i].textContent, country);
       filtertRegions.push(allCountryRegions[i]);
     }
 
