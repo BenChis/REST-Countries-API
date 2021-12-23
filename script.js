@@ -6,7 +6,7 @@ const cardContainer = document.querySelector('.country-container');
 const searchInput = document.querySelector('.form__search-input');
 
 //////////////////
-// UI FUNCTIONS //
+//FUNCTIONS //
 //////////////////
 
 const renderCountryUi = function (data) {
@@ -107,17 +107,19 @@ const renderSearchResults = function (data) {
                   Object.values(data.languages),
                 ]}</span>
               </p>
+              
             </div>
           </div>
-          <h3 class="country__data u-margin-bottom-small">Border Countries:</h3>
+          <h3 class="country__data country-data__border-heading u-margin-bottom-small">Border Countries:</h3>
           <div class="country__data-border-container u-padding-bottom-big">
-            <p class="country__data--border">${data.borders}</p>
-          </div>
         </div>
       </article>
     `;
 
   cardContainer.insertAdjacentHTML('beforeend', html);
+
+  //   CALLING the function after the DOM el was created
+  renderCountryBorder(data.borders);
 };
 
 const getSearchResults = function () {
@@ -125,6 +127,20 @@ const getSearchResults = function () {
   //   console.log(searchResult);
 
   getCountryDataSearch(searchResult);
+};
+
+const renderCountryBorder = function (arr) {
+  arr.forEach(borderCountry => {
+    const borderHTML = `
+    <p class="country__data--border">${borderCountry}</p>
+         </div>`;
+
+    console.log(borderHTML);
+
+    document
+      .querySelector('.country__data-border-container')
+      .insertAdjacentHTML('beforeend', borderHTML);
+  });
 };
 
 //////////////////
@@ -159,7 +175,7 @@ const getCountryDataSearch = function (country) {
 };
 
 //////////////////
-// DEFAULT COUNTRIES WHEN PAGE LOADS   //
+// DEFAULT COUNTRIES WHEN PAGE LOADS //
 //////////////////
 
 // getCountryData('germany');
@@ -172,7 +188,7 @@ const getCountryDataSearch = function (country) {
 // getCountryData('algeria');
 
 //////////////////
-// EVENT LISTENERS   //
+// EVENT LISTENERS //
 //////////////////
 
 searchInput.addEventListener('keydown', function (e) {
