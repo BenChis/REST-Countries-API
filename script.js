@@ -4,8 +4,15 @@
 
 const cardContainer = document.querySelector('.country-container');
 const searchInput = document.querySelector('.form__search-input');
-
+const searchFilter = document.querySelector('.form__filter');
+const searchIcon = document.querySelector('.search-icon');
 const form = document.querySelector('.form');
+
+const header = document.querySelector('header');
+const body = document.querySelector('body');
+
+const modeToggle = document.querySelector('.header__mode-container');
+const moonIcon = document.querySelectorAll('.mode__moon');
 
 //////////////////
 //FUNCTIONS //
@@ -124,9 +131,9 @@ const renderSearchResults = function (data) {
   renderCountryBorder(data.borders);
 };
 
+// GET SEARCH RESULT
 const getSearchResults = function () {
   let searchResult = searchInput.value;
-  //   console.log(searchResult);
 
   getCountryDataSearch(searchResult);
 };
@@ -145,6 +152,7 @@ const renderCountryBorder = function (arr) {
   });
 };
 
+// REMOVING ALL DEFAULTS ON THE PAGE
 const removeSearchFilterEl = function () {
   form.style.display = 'none';
 
@@ -152,6 +160,7 @@ const removeSearchFilterEl = function () {
   allCards.forEach(country => (country.style.display = 'none'));
 };
 
+// REMOVING ALL SEARCH RESULTS AND RENDER ALL DEFAULTS
 const resetSeachResults = function () {
   form.style.display = 'block';
   document.querySelector('.search-result').remove();
@@ -159,6 +168,25 @@ const resetSeachResults = function () {
 
   const allCards = document.querySelectorAll('.country-card');
   allCards.forEach(country => (country.style.display = 'block'));
+};
+
+// MODE TOGGLES
+const nightMode = function () {
+  moonIcon.forEach(icon => icon.classList.toggle('mode__moon--hidden'));
+
+  body.classList.toggle('u-day-colors-body');
+  searchInput.classList.toggle('u-day-colors-bk-txt');
+  searchFilter.classList.toggle('u-day-colors-bk-txt');
+  header.classList.toggle('u-day-colors-bk');
+  searchIcon.classList.toggle('u-day-colors-txt');
+
+  document
+    .querySelectorAll('.country-card')
+    .forEach(country => country.classList.toggle('u-day-colors-bk'));
+};
+
+const filterCountries = function (arr, filter) {
+  arr.filter(el => (el.region = filter));
 };
 
 //////////////////
@@ -199,8 +227,6 @@ const getCountryDataSearch = function (country) {
     })
     .then(function (data) {
       const [countryData] = data;
-      //   console.log(Object.keys(countryData.currencies).at(0));
-      //   console.log(...Object.values(countryData.languages));
       removeSearchFilterEl();
       renderSearchResults(countryData);
     })
@@ -238,4 +264,38 @@ cardContainer.addEventListener('click', function (e) {
     // Reset Search Results
     resetSeachResults();
   }
+});
+
+//////////////////
+//NIGHT MODE FUNCTIONALITY //
+//////////////////
+
+modeToggle.addEventListener('click', function (e) {
+  // APPLY IT ON LANDING PAGE
+  nightMode();
+
+  // APPLY IT ON SEARCH RESULTS
+  if (!body.classList.contains('u-day-colors-body')) {
+    document
+      .querySelectorAll('.country__data--border')
+      .forEach(country => country.classList.add('u-day-colors-bk'));
+
+    document.querySelector('.btn-back').classList.add('u-day-colors-bk-txt');
+  } else {
+    document
+      .querySelectorAll('.country__data--border')
+      .forEach(country => country.classList.remove('u-day-colors-bk'));
+
+    document.querySelector('.btn-back').classList.remove('u-day-colors-bk-txt');
+  }
+
+  //     (body.style.backgroundColor = 'var(--color-light-mode-bk)' === true)
+  //   );
+  //   console.log(modeToggle.firstElementChild);
+  //   console.log(
+  //     !modeToggle.firstElementChild.classList.contains('mode__mood--hidden')
+  //   );
+  //   if (!modeToggle.firstElementChild.classList.contains('mode__mood--hidden'))
+  //     nightMode();
+  //   else window.location.reload();
 });

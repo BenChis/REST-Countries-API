@@ -36,10 +36,9 @@ body {
   font-family: 'Nunito Sans', sans-serif;
   font-size: 1.4rem;
   /* Default font size of browser */
-
+  color: var(--color-dark-mode-txt);
+  background-color: var(--color-dark-mode-bk);
   /* Default Mode day*/
-  color: var(--color-light-mode-txt);
-  background-color: var(--color-light-mode-bk);
 }
 
 /* !!!!!!!!!! */
@@ -72,12 +71,12 @@ header {
 .header__mode-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .mode__moon {
-  height: 2.5rem;
+  height: 2rem;
   margin-right: 0.5rem;
-  cursor: pointer;
 }
 
 .mode__moon--hidden {
@@ -105,6 +104,7 @@ header {
   top: 2.6rem;
   left: 3rem;
   transform: translateY(-20%);
+  stroke: currentColor;
 }
 
 .form__search-input {
@@ -115,10 +115,11 @@ header {
   -webkit-box-shadow: -2px 4px 13px 0px rgba(0, 0, 0, 0.1);
   box-shadow: -2px 4px 13px 0px rgba(0, 0, 0, 0.1);
   margin-bottom: 4rem;
+  color: inherit;
 }
 
 .form__search-input::placeholder {
-  color: var(--color-light-mode-gray);
+  color: currentColor;
 }
 
 .form__filter {
@@ -268,7 +269,7 @@ header {
   .country__infos {
     flex-grow: 1;
     flex-basis: 50%;
-    margin-left: 4rem;
+    margin-left: 2rem;
     margin-right: 5%;
   }
 
@@ -304,4 +305,24 @@ header {
 
 .u-padding-bottom-big {
   padding-bottom: 4rem;
+}
+
+/* COLORS FOR THE DAY MODE */
+/*  ON THE BODY */
+.u-day-colors-body {
+  color: var(--color-light-mode-txt);
+  background-color: var(--color-light-mode-bk);
+}
+
+.u-day-colors-bk-txt {
+  color: var(--color-dark-mode-txt);
+  background-color: var(--color-dark-mode-el);
+}
+
+.u-day-colors-txt {
+  color: var(--color-dark-mode-txt);
+}
+
+.u-day-colors-bk {
+  background-color: var(--color-dark-mode-el);
 }
