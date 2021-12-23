@@ -25,4 +25,4 @@ API SOURCE: [REST Countries V2 API](https://restcountries.com/#api-endpoints-v2)
 
 ## Deployed project
 
-- [GitHub Pages](https://pages.github.com/)
+- [GitHub Pages](https://benchis.github.io/REST-Countries-API/?#)
